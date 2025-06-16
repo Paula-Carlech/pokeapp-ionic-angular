@@ -1,18 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Pokémons</ion-title>
+    <ion-title>Pokemons</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/favorites">
+        Ver Favoritos
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
   <ion-list>
-    <ion-item *ngFor="let poke of pokemons" [routerLink]="['/details', poke.name]">
+    <ion-item *ngFor="let poke of pokemons">
       <ion-thumbnail slot="start">
         <img [src]="poke.image" />
       </ion-thumbnail>
-      <ion-label>{{ poke.name | titlecase }}</ion-label>
+
+      <ion-label (click)="goToDetails(poke.id)" style="cursor: pointer;">
+        {{ poke.name | titlecase }}
+      </ion-label>
+
+      <!-- Button to toggle favorite -->
+      <ion-button slot="end" size="small" color="{{ poke.isFavorite ? 'danger' : 'medium' }}"
+        (click)="toggleFavorite(poke); $event.stopPropagation(); $event.preventDefault();">
+        {{ poke.isFavorite ? 'Favorito' : 'Favoritar' }}
+      </ion-button>
     </ion-item>
   </ion-list>
 
-  <ion-button expand="full" (click)="loadMore()">Carregar mais</ion-button>
+  <ion-button expand="full" (click)="loadMore()">Load More</ion-button>
 </ion-content>
