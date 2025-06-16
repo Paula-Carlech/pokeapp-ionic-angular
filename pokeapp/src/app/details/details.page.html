@@ -7,6 +7,7 @@
 <ion-content *ngIf="pokemon">
   <ion-card>
     <img [src]="pokemon.sprites.front_default" />
+
     <ion-card-content>
       <p><strong>Height:</strong> {{ pokemon.height }}</p>
       <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
@@ -15,5 +16,14 @@
       <p><strong>Abilities:</strong> {{ getAbilities() }}</p>
       <p><strong>Stats:</strong> {{ getStats() }}</p>
     </ion-card-content>
+
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home" text="Back to list"></ion-back-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
   </ion-card>
 </ion-content>
