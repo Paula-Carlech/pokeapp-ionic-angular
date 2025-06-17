@@ -6,6 +6,7 @@
     <ion-searchbar slot="start" debounce="300" (ionInput)="filterPokemons($event)" placeholder="Pesquisar Pokémon">
     </ion-searchbar>
 
+    <!-- Favorite page button -->
     <ion-buttons slot="end">
       <ion-button routerLink="/favorites">
         Ver Favoritos
@@ -18,13 +19,12 @@
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let poke of filteredPokemons">
+    <ion-item *ngFor="let poke of filteredPokemons" [routerLink]="['/details', poke.id]">
       <ion-thumbnail slot="start">
         <img [src]="poke.image" />
       </ion-thumbnail>
 
-      <!-- Click on name navigates to details -->
-      <ion-label (click)="goToDetails(poke.id)" style="cursor: pointer;">
+      <ion-label>
         {{ poke.name | titlecase }}
       </ion-label>
 
