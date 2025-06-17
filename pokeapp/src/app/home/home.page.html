@@ -1,18 +1,24 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Pokemons</ion-title>
+
+    <!-- Search bar -->
+    <ion-searchbar slot="start" debounce="300" (ionInput)="filterPokemons($event)" placeholder="Pesquisar Pokémon">
+    </ion-searchbar>
+
     <ion-buttons slot="end">
       <ion-button routerLink="/favorites">
         Ver Favoritos
       </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let poke of pokemons">
+    <ion-item *ngFor="let poke of filteredPokemons">
       <ion-thumbnail slot="start">
         <img [src]="poke.image" />
       </ion-thumbnail>

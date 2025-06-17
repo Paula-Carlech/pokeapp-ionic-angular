@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class HomePage implements OnInit, OnDestroy {
   pokemons: any[] = [];
+  filteredPokemons: any[] = []; // Array to hold filtered results
 
   currentPage = 0; // Current page index (zero-based)
   limit = 10; // Number of pokemons per page
@@ -32,12 +33,15 @@ export class HomePage implements OnInit, OnDestroy {
     // then load the first page of Pokémons
     this.loadTotalCount();
 
-    // Subscribe to favorites changes and update UI accordingly
+    // Subscribe to favorites changes and update UI accordingly,
+    // updating both pokemons and filteredPokemons arrays
     this.favoritesSub = this.favoritesService.favoritesChanged$.subscribe(() => {
       this.pokemons = this.pokemons.map(pokemon => ({
         ...pokemon,
         isFavorite: this.favoritesService.isFavorite(pokemon.id),
       }));
+      // Update filteredPokemons to keep filtered list synced
+      this.filteredPokemons = [...this.pokemons];
     });
   }
 
@@ -69,7 +73,38 @@ export class HomePage implements OnInit, OnDestroy {
           isFavorite: this.favoritesService.isFavorite(id),
         };
       });
+
+      // Initialize filteredPokemons with full list on each load
+      this.filteredPokemons = [...this.pokemons];
     });
+  }
+
+  // Filter pokemons by name via API
+  filterPokemons(event: any) {
+    const searchTerm = event.target.value.toLowerCase().trim();
+
+    if (!searchTerm) {
+      // If search is empty, load current paginated list
+      this.loadPokemons();
+      return;
+    }
+
+    // Call API to fetch a Pokémon by name
+    this.pokemonService.getPokemonByName(searchTerm).subscribe(
+      (pokemon: any) => {
+        const id = pokemon.id;
+        this.filteredPokemons = [{
+          name: pokemon.name,
+          image: pokemon.sprites.front_default,
+          id: id,
+          isFavorite: this.favoritesService.isFavorite(id),
+        }];
+      },
+      (error) => {
+        // If Pokémon not found, show empty list
+        this.filteredPokemons = [];
+      }
+    );
   }
 
   // Go to the next page if it exists
