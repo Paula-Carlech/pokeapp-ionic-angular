@@ -11,8 +11,8 @@ export class PokemonService {
   constructor(private http: HttpClient) { }
 
   // Get paginated list of Pokémon
-  getPokemons(limit = 20, offset = 0): Observable<any> {
-    return this.http.get(`${this.apiUrl}/pokemon?limit=${limit}&offset=${offset}`);
+  getPokemons(limit: number, offset: number) {
+    return this.http.get<any>(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
   }
 
   // Get details of a single Pokémon

@@ -17,17 +17,41 @@
         <img [src]="poke.image" />
       </ion-thumbnail>
 
+      <!-- Click on name navigates to details -->
       <ion-label (click)="goToDetails(poke.id)" style="cursor: pointer;">
         {{ poke.name | titlecase }}
       </ion-label>
 
       <!-- Button to toggle favorite -->
-      <ion-button slot="end" size="small" color="{{ poke.isFavorite ? 'danger' : 'medium' }}"
+      <ion-button slot="end" size="small" [color]="poke.isFavorite ? 'danger' : 'medium'"
         (click)="toggleFavorite(poke); $event.stopPropagation(); $event.preventDefault();">
         {{ poke.isFavorite ? 'Favorito' : 'Favoritar' }}
       </ion-button>
     </ion-item>
   </ion-list>
 
-  <ion-button expand="full" (click)="loadMore()">Load More</ion-button>
+  <!-- Pagination controls -->
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons slot="start" style="display: flex; align-items: center;">
+        <!-- Previous page button -->
+        <ion-button [disabled]="currentPage === 0" (click)="prevPage()">
+          <ion-icon name="chevron-back"></ion-icon>
+        </ion-button>
+
+        <!-- Page number buttons -->
+        <ng-container *ngFor="let page of getPages()">
+          <ion-button [color]="currentPage === page ? 'primary' : 'medium'" (click)="goToPage(page)">
+            {{ page + 1 }}
+          </ion-button>
+        </ng-container>
+
+        <!-- Next page button -->
+        <ion-button [disabled]="currentPage >= totalPages - 1" (click)="nextPage()">
+          <ion-icon name="chevron-forward"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+
 </ion-content>

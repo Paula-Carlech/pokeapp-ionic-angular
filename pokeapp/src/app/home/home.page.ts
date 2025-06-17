@@ -14,7 +14,10 @@ import { Subscription } from 'rxjs';
 })
 export class HomePage implements OnInit, OnDestroy {
   pokemons: any[] = [];
-  offset = 0;
+
+  currentPage = 0; // Current page index (zero-based)
+  limit = 10; // Number of pokemons per page
+  totalPages = 0; // Total number of pages
 
   private favoritesSub?: Subscription;
 
@@ -25,14 +28,15 @@ export class HomePage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.loadPokemons();
+    // Load total Pokémon count first to calculate total pages,
+    // then load the first page of Pokémons
+    this.loadTotalCount();
 
-    // Subscribe to favorites changes and update pokemons accordingly
+    // Subscribe to favorites changes and update UI accordingly
     this.favoritesSub = this.favoritesService.favoritesChanged$.subscribe(() => {
-      // Update the isFavorite property for all pokemons in the list
       this.pokemons = this.pokemons.map(pokemon => ({
         ...pokemon,
-        isFavorite: this.favoritesService.isFavorite(pokemon.id)
+        isFavorite: this.favoritesService.isFavorite(pokemon.id),
       }));
     });
   }
@@ -42,10 +46,21 @@ export class HomePage implements OnInit, OnDestroy {
     this.favoritesSub?.unsubscribe();
   }
 
-  // Load Pokémon with pagination and check if favorite
+  // Load total count of Pokémons to calculate total pages
+  loadTotalCount() {
+    this.pokemonService.getPokemons(1, 0).subscribe((data) => {
+      this.totalPages = Math.ceil(data.count / this.limit);
+      // Load the first page only after totalPages is set
+      this.loadPokemons();
+    });
+  }
+
+  // Load pokémons of the current page based on pagination
   loadPokemons() {
-    this.pokemonService.getPokemons(20, this.offset).subscribe((data) => {
-      const newPokemons = data.results.map((p: any) => {
+    const offset = this.currentPage * this.limit;
+
+    this.pokemonService.getPokemons(this.limit, offset).subscribe((data) => {
+      this.pokemons = data.results.map((p: any) => {
         const id = p.url.split('/')[6];
         return {
           name: p.name,
@@ -54,22 +69,67 @@ export class HomePage implements OnInit, OnDestroy {
           isFavorite: this.favoritesService.isFavorite(id),
         };
       });
-      this.pokemons = [...this.pokemons, ...newPokemons];
     });
   }
 
-  loadMore() {
-    this.offset += 20;
-    this.loadPokemons();
+  // Go to the next page if it exists
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.loadPokemons();
+    }
   }
 
-  // Toggle favorite status of a pokemon
+  // Go to the previous page if currentPage > 0
+  prevPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.loadPokemons();
+    }
+  }
+
+  // Returns a list of page numbers to display (dynamic window)
+  getPages(): number[] {
+    const total = this.totalPages;
+    const maxVisible = 5; // Maximum number of page buttons shown
+    const half = Math.floor(maxVisible / 2);
+
+    let start = this.currentPage - half;
+    let end = this.currentPage + half;
+
+    // Adjust bounds to avoid out-of-range pages
+    if (start < 0) {
+      start = 0;
+      end = Math.min(maxVisible - 1, total - 1);
+    }
+
+    if (end >= total) {
+      end = total - 1;
+      start = Math.max(end - (maxVisible - 1), 0);
+    }
+
+    const pages: number[] = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  }
+
+  // Go directly to a selected page
+  goToPage(page: number) {
+    if (page !== this.currentPage && page >= 0 && page < this.totalPages) {
+      this.currentPage = page;
+      this.loadPokemons();
+    }
+  }
+
+  // Toggle favorite state of a pokemon
   toggleFavorite(pokemon: any) {
     this.favoritesService.toggleFavorite(pokemon.id);
     pokemon.isFavorite = !pokemon.isFavorite;
   }
 
-  // Navigate to details page
+  // Navigate to the Pokémon details page
   goToDetails(id: string) {
     this.router.navigate(['/details', id]);
   }
