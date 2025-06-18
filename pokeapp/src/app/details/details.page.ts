@@ -44,4 +44,33 @@ export class DetailsPage implements OnInit {
       .map((s: any) => `${s.stat.name}: ${s.base_stat}`)
       .join(', ');
   }
+
+  // Function to get all available sprite URLs from the pokemon object
+  getAllSprites(): string[] {
+    const sprites = this.pokemon?.sprites;
+    if (!sprites) return [];
+
+    // Collect URLs from top-level sprite properties that are strings and not null
+    const urls = Object.keys(sprites)
+      .filter(key => typeof sprites[key] === 'string' && sprites[key])
+      .map(key => sprites[key]);
+
+    // Also check animated sprites inside versions.generation-v.black-white.animated
+    const animatedSprites = sprites?.versions?.['generation-v']?.['black-white']?.animated;
+    if (animatedSprites) {
+      Object.keys(animatedSprites).forEach(key => {
+        if (animatedSprites[key]) {
+          urls.push(animatedSprites[key]);
+        }
+      });
+    }
+
+    // Remove duplicates if any
+    const uniqueUrls = Array.from(new Set(urls));
+
+    // Adicionei este console.log para verificar as URLs
+    console.log('Sprites encontradas:', uniqueUrls);
+
+    return uniqueUrls;
+  }
 }
