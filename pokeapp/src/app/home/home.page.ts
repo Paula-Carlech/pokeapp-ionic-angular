@@ -28,6 +28,8 @@ export class HomePage implements OnInit, OnDestroy {
     private router: Router
   ) { }
 
+  currentYear = new Date().getFullYear(); // Current year for footer display
+
   ngOnInit() {
     // Load total Pokémon count first to calculate total pages,
     // then load the first page of Pokémons

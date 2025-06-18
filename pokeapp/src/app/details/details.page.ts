@@ -18,6 +18,8 @@ export class DetailsPage implements OnInit {
     private pokemonService: PokemonService
   ) { }
 
+  currentYear = new Date().getFullYear(); // Current year for footer display
+
   ngOnInit() {
     const name = this.route.snapshot.paramMap.get('id')!;
     this.pokemonService.getPokemonDetails(name).subscribe((data) => {

@@ -19,6 +19,8 @@ export class FavoritesPage implements OnInit {
     private pokemonService: PokemonService
   ) { }
 
+  currentYear = new Date().getFullYear(); // Current year for footer display
+
   ngOnInit() {
     this.loadFavorites();
   }
