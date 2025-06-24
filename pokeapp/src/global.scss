@@ -35,3 +35,47 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+.custom-footer-toolbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+}
+
+.pagination-buttons {
+    position: absolute !important;
+    left: 40% !important;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+    pointer-events: auto;
+    background: transparent;
+}
+
+@media (max-width: 600px) {
+    .pagination-buttons {
+        position: static !important;
+        transform: none !important;
+        margin: 0 auto;
+        justify-content: center;
+        width: 100%;
+        padding: 8px 0;
+    }
+
+    .custom-footer-toolbar {
+        flex-direction: column;
+        gap: 8px;
+        padding: 8px 16px;
+    }
+
+    .footer-text {
+        margin-right: 0;
+        justify-content: center;
+        width: 100%;
+        font-size: 13px;
+    }
+}

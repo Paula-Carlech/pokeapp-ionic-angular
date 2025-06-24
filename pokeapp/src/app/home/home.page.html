@@ -38,8 +38,8 @@
 
   <!-- Pagination controls -->
   <ion-footer>
-    <ion-toolbar>
-      <ion-buttons slot="start" style="display: flex; align-items: center;">
+    <ion-toolbar class="custom-footer-toolbar">
+      <ion-buttons slot="start" class="pagination-buttons">
         <!-- Previous page button -->
         <ion-button [disabled]="currentPage === 0" (click)="prevPage()">
           <ion-icon name="chevron-back-outline"></ion-icon>
@@ -58,8 +58,8 @@
         </ion-button>
       </ion-buttons>
 
-      <!-- Right aligned footer text -->
-      <div slot="end" style="margin-right: 12px; font-size: 14px; opacity: 0.7;">
+      <!-- Footer text -->
+      <div slot="end" class="footer-text">
         Pokémon App © {{ currentYear }} —
         <a href="https://github.com/Paula-Carlech" target="_blank" rel="noopener noreferrer">
           Paula Carlech
