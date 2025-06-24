@@ -1,0 +1,22 @@
+#!/bin/bash
+# Script to install dependencies and setup project environment
+
+echo "Starting project installation..."
+
+# Update package lists (Linux only)
+# sudo apt update
+
+# Install Node.js dependencies
+echo "Installing npm packages..."
+npm install
+
+# Install Ionic CLI globally (if needed)
+echo "Installing Ionic CLI globally..."
+npm install -g @ionic/cli
+
+# Build project (opcional)
+echo "Building project..."
+npm run build
+
+echo "Installation completed! You can now run the project using:"
+echo "ionic serve"
