@@ -40,17 +40,17 @@ Certifique-se de ter instalado as seguintes ferramentas:
 
 Execute o script de instalação ou instale manualmente:
 
-# Opção 1: Execute o script (Linux/macOS)
+### Opção 1: Execute o script (Linux/macOS)
 
 ```bash
   ./install.sh
 ```
 
-# Opção 2: Execute o script (Windows)
+### Opção 2: Execute o script (Windows)
 
 install.bat
 
-# Opção 3: Instalação manual
+### Opção 3: Instalação manual
 
 ```bash
   npm install
