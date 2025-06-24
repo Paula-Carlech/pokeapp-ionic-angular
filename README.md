@@ -3,6 +3,10 @@
 Uma biblioteca interativa de Pokémons criada com **Ionic + Angular**, que consome dados em tempo real da [PokeAPI](https://pokeapi.co/).  
 Nela você pode buscar Pokémons pelo nome, visualizar detalhes completos e marcar seus favoritos com um simples clique.
 
+🔗 **Acesse online**: [https://paula-carlech.github.io/pokeapp-ionic-angular/](https://paula-carlech.github.io/pokeapp-ionic-angular/)
+
+📦 **Guia de instalação**: veja instruções no arquivo [`INSTALLATION.md`](./INSTALLATION.md)
+
 ## ✨ Funcionalidades
 
 - 🔍 **Busca por nome** com resposta imediata.
