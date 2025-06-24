@@ -7,10 +7,10 @@
 <ion-content *ngIf="pokemon">
   <ion-card>
     <ion-grid>
-      <ion-row>
+      <ion-row class="ion-align-items-center ion-justify-content-start">
         <!-- Image - left side -->
         <ion-col size="12" size-md="6">
-          <div class="image-grid">
+          <div class="image-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; justify-items: center;">
             <div class="image-wrapper" *ngFor="let imgUrl of getAllSprites()">
               <img [src]="imgUrl" alt="{{ pokemon.name }} sprite" loading="lazy">
             </div>

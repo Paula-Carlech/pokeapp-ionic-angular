@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PokemonService } from '../services/pokemon.service';
 import { IonicModule } from '@ionic/angular';
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [IonicModule, CommonModule],
   templateUrl: './details.page.html',
+  encapsulation: ViewEncapsulation.None,
 })
 export class DetailsPage implements OnInit {
   pokemon: any;
