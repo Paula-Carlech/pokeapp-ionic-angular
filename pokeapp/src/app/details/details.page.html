@@ -4,46 +4,50 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="pokemon">
-  <ion-card>
-    <ion-grid>
-      <ion-row class="ion-align-items-center ion-justify-content-start">
-        <!-- Image - left side -->
-        <ion-col size="12" size-md="6">
-          <div class="image-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; justify-items: center;">
-            <div class="image-wrapper" *ngFor="let imgUrl of getAllSprites()">
-              <img [src]="imgUrl" alt="{{ pokemon.name }} sprite" loading="lazy">
+<ion-content class="centered" *ngIf="pokemon">
+  <div class="center-wrapper">
+    <ion-card>
+      <ion-grid>
+        <ion-row class="ion-align-items-center ion-justify-content-start">
+          <!-- Image - left side -->
+          <ion-col size="12" size-md="6">
+            <div class="image-grid"
+              style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; justify-items: center;">
+              <div class="image-wrapper" *ngFor="let imgUrl of getAllSprites()">
+                <img [src]="imgUrl" alt="{{ pokemon.name }} sprite" loading="lazy">
+              </div>
             </div>
+          </ion-col>
+
+          <!-- Info - right side -->
+          <ion-col size="12" size-md="6" class="pokemon-info-col">
+            <ion-card-content>
+              <p><ion-icon name="resize-outline"></ion-icon> <strong>Height:</strong> {{ pokemon.height }}</p>
+              <p><ion-icon name="fitness-outline"></ion-icon> <strong>Weight:</strong> {{ pokemon.weight }}</p>
+              <p><ion-icon name="star-outline"></ion-icon> <strong>Base Experience:</strong> {{ pokemon.base_experience
+                }}</p>
+              <p><ion-icon name="pricetag-outline"></ion-icon> <strong>Types:</strong> {{ getTypes() }}</p>
+              <p><ion-icon name="flash-outline"></ion-icon> <strong>Abilities:</strong> {{ getAbilities() }}</p>
+              <p><ion-icon name="bar-chart-outline"></ion-icon> <strong>Stats:</strong> {{ getStats() }}</p>
+            </ion-card-content>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-footer>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home" text="Voltar"></ion-back-button>
+          </ion-buttons>
+
+          <div slot="end" class="footer-text">
+            Pokémon App © {{ currentYear }} —
+            <a href="https://github.com/Paula-Carlech" target="_blank" rel="noopener noreferrer">
+              Paula Carlech
+            </a>
           </div>
-        </ion-col>
-
-        <!-- Info - right side -->
-        <ion-col size="12" size-md="6" class="pokemon-info-col">
-          <ion-card-content>
-            <p><strong>Height:</strong> {{ pokemon.height }}</p>
-            <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
-            <p><strong>Base Experience:</strong> {{ pokemon.base_experience }}</p>
-            <p><strong>Types:</strong> {{ getTypes() }}</p>
-            <p><strong>Abilities:</strong> {{ getAbilities() }}</p>
-            <p><strong>Stats:</strong> {{ getStats() }}</p>
-          </ion-card-content>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <ion-footer>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button defaultHref="/home" text="Voltar"></ion-back-button>
-        </ion-buttons>
-
-        <div slot="end" class="footer-text">
-          Pokémon App © {{ currentYear }} —
-          <a href="https://github.com/Paula-Carlech" target="_blank" rel="noopener noreferrer">
-            Paula Carlech
-          </a>
-        </div>
-      </ion-toolbar>
-    </ion-footer>
-  </ion-card>
+        </ion-toolbar>
+      </ion-footer>
+    </ion-card>
+  </div>
 </ion-content>
