@@ -36,6 +36,108 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
+/* ======================================
+ * Background image and overlay effect
+ * ====================================== */
+body {
+    background-image: url('./assets/img/pokemon-bg.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.15); // dark transparent overlay
+    z-index: -1;
+}
+
+/* ======================================
+ * Main layout container and scrolling
+ * ====================================== */
+ion-content {
+    --background: transparent !important;
+    background: transparent !important;
+    color: #222;
+    padding: 12px;
+}
+
+ion-content::part(scroll) {
+    background: transparent !important;
+}
+
+/* ======================================
+ * Header and Footer styling
+ * ====================================== */
+ion-header,
+ion-footer {
+    background-color: rgba(255, 255, 255, 0.308);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ======================================
+ * Cards and lists appearance
+ * ====================================== */
+ion-card,
+ion-list {
+    background: rgba(255, 255, 255, 0.205);
+    border-radius: 8px;
+    backdrop-filter: blur(3px);
+}
+
+/* ======================================
+ * Card content styling
+ * ====================================== */
+ion-card-content {
+    color: black;
+    font-weight: bold;
+    font-size: 1.1rem !important;
+}
+
+/* ======================================
+ * Ion item (form rows, list items)
+ * ====================================== */
+ion-item {
+    --background: transparent !important;
+    background: transparent !important;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    border-radius: 8px;
+    box-shadow: none;
+    border: none;
+}
+
+ion-item::part(native) {
+    box-shadow: none !important;
+    border: none !important;
+}
+
+ion-item .item-native,
+ion-item .input-wrapper {
+    background: transparent !important;
+}
+
+/* ======================================
+ * Form fields inside items
+ * ====================================== */
+ion-input,
+ion-select,
+ion-textarea {
+    --background: transparent !important;
+    background: transparent !important;
+}
+
+/* ======================================
+ * Footer toolbar custom layout
+ * ====================================== */
 .custom-footer-toolbar {
     position: relative;
     display: flex;
@@ -44,6 +146,9 @@
     padding: 0 16px;
 }
 
+/* ======================================
+ * Pagination buttons layout
+ * ====================================== */
 .pagination-buttons {
     position: absolute !important;
     left: 40% !important;
@@ -56,6 +161,9 @@
     background: transparent;
 }
 
+/* ======================================
+ * Responsive adjustments for small screens
+ * ====================================== */
 @media (max-width: 600px) {
     .pagination-buttons {
         position: static !important;
@@ -77,5 +185,13 @@
         justify-content: center;
         width: 100%;
         font-size: 13px;
+    }
+
+    html,
+    body,
+    ion-app,
+    ion-content {
+        height: 100% !important;
+        width: 100% !important;
     }
 }
