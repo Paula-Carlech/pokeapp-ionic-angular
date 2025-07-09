@@ -36,6 +36,26 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
+:root {
+    --ion-item-background: transparent !important;
+    --ion-card-background: rgba(255, 255, 255, 0.08) !important;
+}
+
+ion-icon {
+    font-size: 24px !important;
+    /* Tamanho visível */
+    color: #ffd700 !important;
+    /* Cor dourada */
+    vertical-align: middle;
+    margin-right: 6px;
+    display: inline-block !important;
+    /* Garante que esteja visível */
+    opacity: 1 !important;
+    /* Remove opacidade zero */
+    visibility: visible !important;
+    /* Garante visibilidade */
+}
+
 /* ======================================
  * Background image and overlay effect
  * ====================================== */
@@ -88,18 +108,47 @@ ion-footer {
  * ====================================== */
 ion-card,
 ion-list {
-    background: rgba(255, 255, 255, 0.205);
-    border-radius: 8px;
-    backdrop-filter: blur(3px);
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease;
+}
+
+/* Hover effect on cards */
+ion-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+    transition: all 0.2s ease-in-out;
 }
 
 /* ======================================
  * Card content styling
  * ====================================== */
 ion-card-content {
-    color: black;
-    font-weight: bold;
-    font-size: 1.1rem !important;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Highlighted text inside cards */
+ion-card-content strong {
+    color: #ffd700;
+    font-weight: 600;
+}
+
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 16px;
+}
+
+ion-card {
+    width: 100%;
+    max-width: 1000px;
 }
 
 /* ======================================
@@ -113,6 +162,16 @@ ion-item {
     border-radius: 8px;
     box-shadow: none;
     border: none;
+}
+
+ion-item:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    transform: scale(1.02);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
 }
 
 ion-item::part(native) {
@@ -144,6 +203,10 @@ ion-textarea {
     justify-content: space-between;
     align-items: center;
     padding: 0 16px;
+}
+
+.footer-text a {
+    margin-right: 10px;
 }
 
 /* ======================================
